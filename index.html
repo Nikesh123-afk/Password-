@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Monster - Feed the Monster a Strong Password!</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <h1>Password Monster</h1>
+        <p class="subtitle">Feed the monster a strong password!</p>
+    </header>
+    <main class="site-main">
+        <section class="analyzer-section">
+            <div class="password-input-wrapper">
+                <input type="password" id="password" placeholder="Enter your password" aria-describedby="strength monster">
+                <button id="togglePassword" aria-label="Show password" type="button">👁️</button>
+            </div>
+            <div class="monster-container">
+                <div id="monster" class="monster weak">
+                    <div class="monster-body">
+                        <div class="monster-eyes">
+                            <div class="eye left"></div>
+                            <div class="eye right"></div>
+                        </div>
+                        <div class="monster-mouth"></div>
+                        <div class="monster-teeth"></div>
+                    </div>
+                    <div class="monster-arms">
+                        <div class="arm left"></div>
+                        <div class="arm right"></div>
+                    </div>
+                    <div class="monster-legs">
+                        <div class="leg left"></div>
+                        <div class="leg right"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="strength" aria-live="polite"></div>
+            <div id="suggestions" aria-live="polite"></div>
+        </section>
+        <section class="tips-section">
+            <h2>🛡️ Password Security Tips</h2>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <h3>❌ Avoid These</h3>
+                    <ul>
+                        <li>Common words like "password"</li>
+                        <li>Simple patterns (123456, qwerty)</li>
+                        <li>Personal info (name, birthdate)</li>
+                        <li>Short passwords (< 8 characters)</li>
+                    </ul>
+                </div>
+                <div class="tip-card">
+                    <h3>✅ Do This Instead</h3>
+                    <ul>
+                        <li>Use 12+ characters</li>
+                        <li>Mix uppercase & lowercase</li>
+                        <li>Add numbers & symbols</li>
+                        <li>Use unique passwords</li>
+                        <li>Consider a password manager</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section class="examples-section">
+            <h2>💡 Examples</h2>
+            <div class="examples-grid">
+                <div class="example-item">
+                    <strong>Weak:</strong> password123
+                </div>
+                <div class="example-item">
+                    <strong>Better:</strong> MySecurePass2024!
+                </div>
+                <div class="example-item">
+                    <strong>Strong:</strong> 7x!Qz9Lp2@Wv8Hn
+                </div>
+            </div>
+        </section>
+    <footer class="site-footer">
+        <p>Created with ❤️ for password security</p>
+    </footer>
+    <script src="assets/script.js"></script>
+</body>
+</html>
