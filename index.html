@@ -3,84 +3,403 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Password Monster - Feed the Monster a Strong Password!</title>
+    <title>Password Monster - Check Your Password Strength</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
+    <!-- HEADER / NAVIGATION -->
     <header class="site-header">
-        <h1>Password Monster</h1>
-        <p class="subtitle">Feed the monster a strong password!</p>
+        <div class="header-container">
+            <a href="#" class="logo">
+                <span class="logo-icon"></span>
+                <span class="logo-text">PasswordMonster</span>
+            </a>
+            <nav class="nav-menu">
+                <a href="#tool" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#how-it-works" class="nav-link">How It Works</a>
+                <a href="#best-practices" class="nav-link">Best Practices</a>
+            </nav>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
     </header>
-    <main class="site-main">
-        <section class="analyzer-section">
-            <div class="password-input-wrapper">
-                <input type="password" id="password" placeholder="Enter your password" aria-describedby="strength monster">
-                <button id="togglePassword" aria-label="Show password" type="button">👁️</button>
-            </div>
-            <div class="monster-container">
-                <div id="monster" class="monster weak">
-                    <div class="monster-body">
-                        <div class="monster-eyes">
-                            <div class="eye left"></div>
-                            <div class="eye right"></div>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-container">
+            <h1 class="hero-title">How Secure Is Your Password?</h1>
+            <p class="hero-subtitle">Find Out In Seconds - Test Your Password Strength</p>
+            <a href="#tool" class="hero-cta">Learn About Password Best Practices Below </a>
+        </div>
+    </section>
+
+    <!-- PASSWORD STRENGTH CHECKER TOOL -->
+    <section class="tool-section" id="tool">
+        <div class="tool-container">
+            <div class="tool-card">
+                <h2 class="tool-title">Password Strength Checker</h2>
+                
+                <label class="input-label">Enter Your Password:</label>
+                <div class="input-group">
+                    <input 
+                        type="password" 
+                        id="password" 
+                        class="password-input" 
+                        placeholder="Type your password here..."
+                        autocomplete="off"
+                        spellcheck="false"
+                    >
+                    <button id="togglePassword" class="toggle-btn" type="button" aria-label="Show password">
+                        <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="strength-indicator">
+                    <label class="input-label">Strength Indicator:</label>
+                    <div class="strength-bar-wrapper">
+                        <div class="strength-bar-container">
+                            <div class="strength-bar" id="strengthBar"></div>
                         </div>
-                        <div class="monster-mouth"></div>
-                        <div class="monster-teeth"></div>
-                    </div>
-                    <div class="monster-arms">
-                        <div class="arm left"></div>
-                        <div class="arm right"></div>
-                    </div>
-                    <div class="monster-legs">
-                        <div class="leg left"></div>
-                        <div class="leg right"></div>
+                        <span class="strength-text" id="strengthLabel"></span>
                     </div>
                 </div>
+
+                <div class="stats-row" id="statsRow">
+                    <div class="stat-item">
+                        <span class="stat-icon"></span>
+                        <span class="stat-label">Time to Crack:</span>
+                        <span class="stat-value" id="crackTime"></span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon"></span>
+                        <span class="stat-label">Entropy:</span>
+                        <span class="stat-value" id="entropy"></span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-icon"></span>
+                        <span class="stat-label">Length:</span>
+                        <span class="stat-value" id="lengthDisplay">0</span>
+                    </div>
+                </div>
+
+                <!-- Breach Check Status -->
+                <div id="breachStatus" class="breach-status" style="display: none;"></div>
+
+                <!-- Passphrase Generator -->
+                <div class="passphrase-generator" id="passphraseGenerator" style="display: none;">
+                    <h3>🔐 Generate a Strong Passphrase</h3>
+                    <p class="generator-desc">Long, random passphrases are more secure and memorable than complex passwords.</p>
+                    <div class="generator-result">
+                        <input type="text" id="generatedPassphrase" class="generated-password" readonly>
+                        <div class="generator-buttons">
+                            <button id="generateBtn" class="btn-primary">🔄 Generate New</button>
+                            <button id="copyPassphraseBtn" class="btn-secondary">📋 Copy</button>
+                            <button id="usePassphraseBtn" class="btn-success">✓ Use This</button>
+                        </div>
+                    </div>
+                    <div class="generator-options">
+                        <label>
+                            <input type="number" id="wordCount" min="4" max="8" value="5">
+                            Word Count (4-8)
+                        </label>
+                        <label>
+                            <input type="checkbox" id="includeNumbers" checked>
+                            Include Numbers
+                        </label>
+                        <label>
+                            <input type="checkbox" id="includeSymbols">
+                            Include Symbols
+                        </label>
+                    </div>
+                </div>
+
+                <div class="suggestions" id="suggestions"></div>
+
+                <div class="privacy-notice">
+                    <span class="privacy-icon"></span>
+                    Your password never leaves your browser. All checks done locally.
+                </div>
             </div>
-            <div id="strength" aria-live="polite"></div>
-            <div id="suggestions" aria-live="polite"></div>
-        </section>
-        <section class="tips-section">
-            <h2>🛡️ Password Security Tips</h2>
-            <div class="tips-grid">
-                <div class="tip-card">
-                    <h3>❌ Avoid These</h3>
-                    <ul>
-                        <li>Common words like "password"</li>
-                        <li>Simple patterns (123456, qwerty)</li>
-                        <li>Personal info (name, birthdate)</li>
-                        <li>Short passwords (< 8 characters)</li>
+        </div>
+    </section>
+
+    <!-- POOR PASSWORD PRACTICES -->
+    <section class="practices-section" id="poor-practices">
+        <div class="section-container">
+            <h2 class="section-title">The Most Common Poor Password Practices</h2>
+            <div class="practices-grid">
+                <div class="practice-card bad">
+                    <span class="practice-icon"></span>
+                    <h3>Create Easy Passwords</h3>
+                    <p>Using simple, guessable passwords like "password123" or pet names.</p>
+                </div>
+                <div class="practice-card bad">
+                    <span class="practice-icon"></span>
+                    <h3>Reuse Passwords</h3>
+                    <p>Using the same password across multiple websites and accounts.</p>
+                </div>
+                <div class="practice-card bad">
+                    <span class="practice-icon"></span>
+                    <h3>Share Insecurely</h3>
+                    <p>Sending passwords via email, text, or unencrypted messaging.</p>
+                </div>
+                <div class="practice-card bad">
+                    <span class="practice-icon"></span>
+                    <h3>Write Down Passwords</h3>
+                    <p>Keeping passwords on sticky notes or in unsecured documents.</p>
+                </div>
+                <div class="practice-card bad">
+                    <span class="practice-icon"></span>
+                    <h3>Skip MFA Adoption</h3>
+                    <p>Not enabling multi-factor authentication when available.</p>
+                </div>
+                <div class="practice-card bad">
+                    <span class="practice-icon"></span>
+                    <h3>Auto-Save in Browsers</h3>
+                    <p>Relying on browser password storage without a master password.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT THIS PASSWORD CHECKER -->
+    <section class="about-section" id="about">
+        <div class="section-container">
+            <h2 class="section-title">About This Password Checker</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Why use this tool?</h3>
+                    <ul class="feature-list">
+                        <li><span class="check"></span> Real-time password strength analysis</li>
+                        <li><span class="check"></span> Identifies vulnerabilities in your passwords</li>
+                        <li><span class="check"></span> 100% client-side processing for privacy</li>
+                        <li><span class="check"></span> No data storage or transmission</li>
                     </ul>
                 </div>
-                <div class="tip-card">
-                    <h3>✅ Do This Instead</h3>
-                    <ul>
-                        <li>Use 12+ characters</li>
-                        <li>Mix uppercase & lowercase</li>
-                        <li>Add numbers & symbols</li>
-                        <li>Use unique passwords</li>
-                        <li>Consider a password manager</li>
-                    </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- IS IT SAFE? -->
+    <section class="safety-warning-section">
+        <div class="section-container">
+            <div class="warning-box">
+                <h2> Is It Actually Safe to Use Password Checkers?</h2>
+                <p><strong>Important Security Consideration:</strong> Never enter your REAL passwords into ANY website you don't completely trust. Malicious sites can steal credentials.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHY IS THIS SAFE? -->
+    <section class="safety-section">
+        <div class="section-container">
+            <h2 class="section-title">Why Is This Password Strength Meter Safe?</h2>
+            <div class="safety-grid">
+                <div class="safety-item">
+                    <span class="safety-check"></span>
+                    <div>
+                        <h4>Passwords never leave your browser</h4>
+                        <p>No transmission to our servers</p>
+                    </div>
+                </div>
+                <div class="safety-item">
+                    <span class="safety-check"></span>
+                    <div>
+                        <h4>All checking done on your device</h4>
+                        <p>No server-side processing</p>
+                    </div>
+                </div>
+                <div class="safety-item">
+                    <span class="safety-check"></span>
+                    <div>
+                        <h4>No user identification possible</h4>
+                        <p>We don't know who you are or which sites you use</p>
+                    </div>
+                </div>
+                <div class="safety-item">
+                    <span class="safety-check"></span>
+                    <div>
+                        <h4>We prioritize your online security</h4>
+                        <p>Our mission is to make the internet safer</p>
+                    </div>
                 </div>
             </div>
-        </section>
-        <section class="examples-section">
-            <h2>💡 Examples</h2>
-            <div class="examples-grid">
-                <div class="example-item">
-                    <strong>Weak:</strong> password123
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how-section" id="how-it-works">
+        <div class="section-container">
+            <h2 class="section-title">How Does the Password Strength Checker Work?</h2>
+            <p class="section-subtitle">Our algorithm uses multiple techniques:</p>
+            <div class="techniques-grid">
+                <div class="technique-item">
+                    <span class="technique-icon"></span>
+                    <h4>Dictionary Checks</h4>
+                    <p>Compares against common password dictionaries</p>
                 </div>
-                <div class="example-item">
-                    <strong>Better:</strong> MySecurePass2024!
+                <div class="technique-item">
+                    <span class="technique-icon"></span>
+                    <h4>Substitution Attack Detection</h4>
+                    <p>Identifies common letter to number swaps (A to 4, E to 3, etc.)</p>
                 </div>
-                <div class="example-item">
-                    <strong>Strong:</strong> 7x!Qz9Lp2@Wv8Hn
+                <div class="technique-item">
+                    <span class="technique-icon"></span>
+                    <h4>Sequence Detection</h4>
+                    <p>Finds sequential patterns (12345, 67890, etc.)</p>
+                </div>
+                <div class="technique-item">
+                    <span class="technique-icon"></span>
+                    <h4>Keyboard Pattern Analysis</h4>
+                    <p>Detects keyboard walks (qwert, asdf, etc.)</p>
+                </div>
+                <div class="technique-item">
+                    <span class="technique-icon"></span>
+                    <h4>Length and Complexity Evaluation</h4>
+                    <p>Calculates entropy and brute-force resistance</p>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
+
+    <!-- COMMON MISTAKES -->
+    <section class="myths-section">
+        <div class="section-container">
+            <h2 class="section-title">Common Mistakes and Misconceptions</h2>
+            <div class="myths-list">
+                <div class="myth-item">
+                    <div class="myth-header">
+                        <span class="myth-x"></span>
+                        <strong>MYTH:</strong> Letter-to-number substitution makes passwords stronger
+                    </div>
+                    <div class="myth-fact">
+                        <span class="fact-label">FACT:</span> Hackers know this - P@ssw0rd is not much safer
+                    </div>
+                </div>
+                <div class="myth-item">
+                    <div class="myth-header">
+                        <span class="myth-x"></span>
+                        <strong>MYTH:</strong> 8 characters with mixed case = secure password
+                    </div>
+                    <div class="myth-fact">
+                        <span class="fact-label">FACT:</span> Modern standards require minimum 14 characters
+                    </div>
+                </div>
+                <div class="myth-item">
+                    <div class="myth-header">
+                        <span class="myth-x"></span>
+                        <strong>MYTH:</strong> One strong password for all sites is safe
+                    </div>
+                    <div class="myth-fact">
+                        <span class="fact-label">FACT:</span> If one site is breached, all accounts are at risk
+                    </div>
+                </div>
+                <div class="myth-item">
+                    <div class="myth-header">
+                        <span class="myth-x"></span>
+                        <strong>MYTH:</strong> Phone notes and spreadsheets are safe for passwords
+                    </div>
+                    <div class="myth-fact">
+                        <span class="fact-label">FACT:</span> Cloud sync and file access pose serious risks
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHAT MAKES A STRONG PASSWORD -->
+    <section class="strong-section" id="best-practices">
+        <div class="section-container">
+            <h2 class="section-title">What Makes a Strong Password?</h2>
+            <p class="section-subtitle">A strong password must be:</p>
+            <div class="strong-grid">
+                <div class="strong-item">
+                    <span class="strong-icon"></span>
+                    <h4>LONG</h4>
+                    <p>Minimum 14 characters (longer = exponentially harder to crack)</p>
+                </div>
+                <div class="strong-item">
+                    <span class="strong-icon"></span>
+                    <h4>COMPLEX</h4>
+                    <p>Mix uppercase, lowercase, numbers, and symbols</p>
+                </div>
+                <div class="strong-item">
+                    <span class="strong-icon"></span>
+                    <h4>UNIQUE</h4>
+                    <p>Do not reuse passwords across different accounts</p>
+                </div>
+                <div class="strong-item">
+                    <span class="strong-icon"></span>
+                    <h4>UNPREDICTABLE</h4>
+                    <p>Avoid dictionary words, names, dates, sequential patterns</p>
+                </div>
+                <div class="strong-item">
+                    <span class="strong-icon"></span>
+                    <h4>MEMORABLE</h4>
+                    <p>Use passphrases for better memorability (but not obvious)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PASSPHRASE SECTION -->
+    <section class="passphrase-section">
+        <div class="section-container">
+            <div class="passphrase-card">
+                <h2> Passphrase Alternative</h2>
+                <div class="passphrase-content">
+                    <div class="passphrase-what">
+                        <h3>What is a Passphrase?</h3>
+                        <p>A passphrase is a longer password using a sentence with spaces and punctuation.</p>
+                        <div class="passphrase-example">
+                            <strong>Example:</strong> "My-Dog-Loves-Hiking-In-Mountains-7times!"
+                        </div>
+                    </div>
+                    <div class="passphrase-benefits">
+                        <h3>Benefits of Passphrases:</h3>
+                        <ul>
+                            <li> Easier to remember than random character strings</li>
+                            <li> Longer length = exponentially more secure</li>
+                            <li> Still complex and unpredictable</li>
+                            <li> Better protection against brute-force attacks</li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="passphrase-tip"> Length exponentially increases crack time - invest in passphrases!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
     <footer class="site-footer">
-        <p>Created with ❤️ for password security</p>
+        <div class="footer-container">
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Blog</a>
+                <a href="#">Contact Us</a>
+                <a href="#">GitHub</a>
+            </div>
+            <p class="footer-copyright">2024 PasswordMonster | Making the Internet Safer</p>
+            <div class="footer-social">
+                <span>Follow us:</span>
+                <a href="#">Twitter</a>
+                <a href="#">LinkedIn</a>
+                <a href="#">Facebook</a>
+            </div>
+        </div>
     </footer>
+
+    <!-- zxcvbn password strength estimator -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js" integrity="sha512-TZlMGFY9xKj38t/5m2FzJ+RM/aD5alMHDe26p0mYg7P7MfwvBK5a8VuJJqaTnquXEzQjcWPs73JPgCXL9gL5Iw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="assets/script.js"></script>
 </body>
 </html>

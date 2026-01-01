@@ -1,359 +1,1262 @@
-/* Password Monster Theme */
+/* Password Monster - Academy Design */
+:root {
+    --primary: #1e40af;
+    --primary-dark: #1e3a8a;
+    --primary-light: #3b82f6;
+    --secondary: #0f172a;
+    --accent: #06b6d4;
+    --bg: #f8fafc;
+    --bg-alt: #f1f5f9;
+    --card: #ffffff;
+    --text: #1e293b;
+    --text-muted: #64748b;
+    --text-light: #94a3b8;
+    --border: #e2e8f0;
+    --weak: #ef4444;
+    --fair: #f97316;
+    --good: #eab308;
+    --strong: #22c55e;
+    --excellent: #06b6d4;
+    --warning-bg: #fef3c7;
+    --warning-border: #f59e0b;
+    --success: #10b981;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    font-family: 'Arial', sans-serif;
-    background: #000;
-    color: #fff;
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-    text-align: center;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
 }
 
+/* ========== HEADER ========== */
 .site-header {
-    background: #111;
-    padding: 20px;
-    border-bottom: 2px solid #333;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
-.site-header h1 {
-    font-size: 3rem;
-    margin: 0;
-    font-weight: bold;
-    text-shadow: 0 0 10px #ff0000;
-    color: #ff6666;
-}
-
-.subtitle {
-    font-size: 1.2rem;
-    color: #ccc;
-    margin-top: 10px;
-}
-
-.site-main {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 0 20px;
-}
-
-.analyzer-section {
-    background: #222;
-    border-radius: 10px;
-    padding: 30px;
-    box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
-    margin-bottom: 20px;
-}
-
-.password-input-wrapper {
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 16px 24px;
     display: flex;
-    justify-content: center;
     align-items: center;
-    margin-bottom: 30px;
+    justify-content: space-between;
 }
 
-#password {
-    width: 300px;
-    padding: 15px;
-    font-size: 18px;
-    border: 2px solid #666;
-    border-radius: 5px;
-    background: #333;
-    color: #fff;
-    margin-right: 10px;
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--primary);
 }
 
-#password:focus {
-    border-color: #ff6666;
-    outline: none;
+.logo-icon {
+    font-size: 1.5rem;
 }
 
-#togglePassword {
-    background: #444;
-    border: 2px solid #666;
-    border-radius: 5px;
-    color: #fff;
-    padding: 15px;
+.nav-menu {
+    display: flex;
+    gap: 32px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+}
+
+.nav-link:hover {
+    color: var(--primary);
+}
+
+.mobile-menu-btn {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: none;
     cursor: pointer;
-    font-size: 16px;
+    padding: 8px;
 }
 
-#togglePassword:hover {
-    background: #555;
+.mobile-menu-btn span {
+    width: 24px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
 }
 
-.monster-container {
-    display: flex;
-    justify-content: center;
-    margin: 30px 0;
-}
-
-.monster {
-    position: relative;
-    transition: all 0.5s ease;
-}
-
-.monster-body {
-    width: 100px;
-    height: 100px;
-    background: #8B4513;
-    border-radius: 50%;
-    position: relative;
-    border: 3px solid #654321;
-}
-
-.monster-eyes {
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 20px;
-}
-
-.eye {
-    width: 15px;
-    height: 15px;
-    background: #fff;
-    border-radius: 50%;
-    position: relative;
-}
-
-.eye::after {
-    content: '';
-    position: absolute;
-    top: 3px;
-    left: 3px;
-    width: 9px;
-    height: 9px;
-    background: #000;
-    border-radius: 50%;
-}
-
-.monster-mouth {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 30px;
-    height: 15px;
-    background: #000;
-    border-radius: 0 0 15px 15px;
-}
-
-.monster-teeth {
-    position: absolute;
-    bottom: 15px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 5px;
-}
-
-.monster-teeth::before,
-.monster-teeth::after {
-    content: '';
-    width: 8px;
-    height: 10px;
-    background: #fff;
-    clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-}
-
-.monster-arms {
-    position: absolute;
-    top: 40px;
-    left: -20px;
-    right: -20px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.arm {
-    width: 20px;
-    height: 40px;
-    background: #8B4513;
-    border-radius: 10px;
-    border: 2px solid #654321;
-}
-
-.monster-legs {
-    position: absolute;
-    bottom: -40px;
-    left: 20px;
-    right: 20px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.leg {
-    width: 15px;
-    height: 40px;
-    background: #8B4513;
-    border-radius: 10px;
-    border: 2px solid #654321;
-}
-
-/* Monster strength states */
-.monster.weak {
-    transform: scale(0.8);
-}
-
-.monster.weak .monster-body {
-    background: #ff4444;
-}
-
-.monster.fair {
-    transform: scale(1);
-}
-
-.monster.fair .monster-body {
-    background: #ffaa44;
-}
-
-.monster.good {
-    transform: scale(1.2);
-}
-
-.monster.good .monster-body {
-    background: #ffff44;
-    box-shadow: 0 0 20px #ffff44;
-}
-
-.monster.strong {
-    transform: scale(1.4);
-}
-
-.monster.strong .monster-body {
-    background: #44ff44;
-    box-shadow: 0 0 30px #44ff44;
-}
-
-.monster.excellent {
-    transform: scale(1.6);
-}
-
-.monster.excellent .monster-body {
-    background: #4444ff;
-    box-shadow: 0 0 40px #4444ff;
-}
-
-.monster.excellent .monster-arms .arm {
-    height: 60px;
-}
-
-.monster.excellent .monster-legs .leg {
-    height: 60px;
-}
-
-#strength {
-    font-size: 24px;
-    font-weight: bold;
-    margin: 20px 0;
-    text-shadow: 0 0 10px currentColor;
-}
-
-#suggestions {
-    font-size: 16px;
-    color: #ccc;
-    margin-top: 20px;
-}
-
-#suggestions ul {
-    list-style: none;
-    padding: 0;
-}
-
-#suggestions li {
-    margin: 5px 0;
-}
-
-.site-footer {
-    background: #111;
-    padding: 20px;
-    border-top: 2px solid #333;
-    margin-top: 40px;
-}
-
-.site-footer p {
-    margin: 0;
-    color: #666;
-}
-
-.tips-section, .examples-section {
-    background: #222;
-    border-radius: 10px;
-    padding: 30px;
-    margin-bottom: 20px;
-    box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
-}
-
-.tips-section h2, .examples-section h2 {
-    color: #ff6666;
-    font-size: 1.8rem;
-    margin-bottom: 20px;
+/* ========== HERO ========== */
+.hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 80px 24px;
     text-align: center;
-    text-shadow: 0 0 10px #ff0000;
 }
 
-.tips-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+.hero-container {
+    max-width: 800px;
+    margin: 0 auto;
 }
 
-@media (max-width: 768px) {
-    .tips-grid {
-        grid-template-columns: 1fr;
+.hero-title {
+    font-size: 2.75rem;
+    font-weight: 800;
+    margin-bottom: 16px;
+    line-height: 1.2;
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    margin-bottom: 32px;
+}
+
+.hero-cta {
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 12px 24px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.hero-cta:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.5);
+}
+
+/* ========== TOOL SECTION ========== */
+.tool-section {
+    padding: 60px 24px;
+    background: var(--bg-alt);
+}
+
+.tool-container {
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.tool-card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    border: 1px solid var(--border);
+}
+
+.tool-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.input-label {
+    display: block;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.input-group {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.password-input {
+    flex: 1;
+    padding: 16px 20px;
+    font-size: 1.1rem;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: inherit;
+    transition: all 0.2s;
+}
+
+.password-input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(30, 64, 175, 0.1);
+}
+
+.password-input::placeholder {
+    color: var(--text-light);
+}
+
+.toggle-btn {
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    cursor: pointer;
+    color: var(--text-muted);
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-btn:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+/* Strength Indicator */
+.strength-indicator {
+    margin-bottom: 24px;
+}
+
+.strength-bar-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.strength-bar-container {
+    flex: 1;
+    height: 12px;
+    background: var(--bg-alt);
+    border-radius: 999px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+}
+
+.strength-bar {
+    height: 100%;
+    width: 0%;
+    border-radius: 999px;
+    transition: width 0.4s ease, background 0.3s ease;
+}
+
+.strength-text {
+    font-weight: 700;
+    font-size: 0.9rem;
+    min-width: 100px;
+    text-align: right;
+}
+
+/* Stats Row */
+.stats-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 20px;
+    background: var(--bg-alt);
+    border-radius: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 150px;
+}
+
+.stat-icon {
+    font-size: 1.25rem;
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.stat-value {
+    font-weight: 700;
+    color: var(--text);
+}
+
+/* Breach Status */
+.breach-status {
+    margin-top: 1.5rem;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    animation: slideIn 0.3s ease-out;
+}
+
+.breach-status.compromised {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 2px solid #fca5a5;
+}
+
+.breach-status.safe {
+    background: #dcfce7;
+    color: #166534;
+    border: 2px solid #86efac;
+}
+
+.breach-status.checking {
+    background: #fef9c3;
+    color: #854d0e;
+    border: 2px solid #fde047;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
-.tip-card {
-    background: #333;
+/* Passphrase Generator */
+.passphrase-generator {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
+    border-radius: 12px;
+    border: 2px solid var(--primary);
+    animation: slideIn 0.3s ease-out;
+}
+
+.passphrase-generator h3 {
+    margin: 0 0 0.5rem 0;
+    color: var(--primary);
+    font-size: 1.25rem;
+}
+
+.generator-desc {
+    color: var(--text-muted);
+    margin: 0 0 1.5rem 0;
+    font-size: 0.95rem;
+}
+
+.generator-result {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.generated-password {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid var(--primary);
     border-radius: 8px;
-    padding: 20px;
-    border: 1px solid #444;
+    font-family: 'Courier New', monospace;
+    font-size: 1.1rem;
+    font-weight: 600;
+    background: white;
+    color: var(--text);
+    text-align: center;
 }
 
-.tip-card h3 {
-    color: #ffaa44;
-    margin-bottom: 15px;
-    font-size: 1.2rem;
+.generator-buttons {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
 }
 
-.tip-card ul {
+.generator-buttons button {
+    flex: 1;
+    min-width: 120px;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #1e3a8a;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: #64748b;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #475569;
+    transform: translateY(-2px);
+}
+
+.btn-success {
+    background: #16a34a;
+    color: white;
+}
+
+.btn-success:hover {
+    background: #15803d;
+    transform: translateY(-2px);
+}
+
+.generator-options {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.generator-options label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+.generator-options input[type="number"] {
+    width: 60px;
+    padding: 0.4rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+}
+
+.generator-options input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+/* Suggestions */
+.suggestions {
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.suggestions-header {
+    margin-bottom: 12px;
+}
+
+.suggestions-list {
     list-style: none;
-    padding: 0;
-    margin: 0;
+    margin-top: 8px;
 }
 
-.tip-card li {
-    color: #ccc;
-    margin-bottom: 8px;
-    padding-left: 20px;
+.suggestions ul {
+    list-style: none;
+    margin-top: 8px;
+}
+
+.suggestions li {
+    padding: 6px 0 6px 24px;
     position: relative;
 }
 
-.tip-card li::before {
-    content: "•";
-    color: #ff6666;
+.suggestions li::before {
+    content: ">";
     position: absolute;
     left: 0;
+    color: var(--primary);
+    font-weight: bold;
 }
 
-.examples-grid {
+/* Password Suggestions Section */
+.password-suggestions {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #f0fdf4 0%, #f0f9ff 100%);
+    border-radius: 12px;
+    border: 2px solid var(--primary-light);
+    animation: slideIn 0.4s ease-out;
+}
+
+.suggestions-title {
+    margin: 0 0 0.5rem 0;
+    color: var(--primary);
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.suggestions-subtitle {
+    margin: 0 0 1rem 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.suggested-passwords-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.suggested-password-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem;
+    background: white;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.suggested-password-item:hover {
+    border-color: var(--primary);
+    background: #fafbff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(30, 64, 175, 0.1);
+}
+
+.password-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+}
+
+.password-value {
+    flex: 1;
+    font-family: 'Courier New', Consolas, monospace;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    word-break: break-all;
+}
+
+.copy-suggested-btn {
+    padding: 0.5rem 0.75rem;
+    background: var(--bg-alt);
+    border: 2px solid var(--border);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.copy-suggested-btn:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    transform: scale(1.1);
+}
+
+.suggestions-note {
+    margin: 0;
+    padding: 0.75rem;
+    background: white;
+    border-radius: 6px;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    text-align: center;
+    border: 1px dashed var(--border);
+}
+
+/* Privacy Notice */
+.privacy-notice {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px;
+    background: #ecfdf5;
+    border-radius: 8px;
+    color: #065f46;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.privacy-icon {
+    font-size: 1.25rem;
+}
+
+/* ========== SECTIONS COMMON ========== */
+.section-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+.section-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--secondary);
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.section-subtitle {
+    text-align: center;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+    font-size: 1.1rem;
+}
+
+/* ========== POOR PRACTICES ========== */
+.practices-section {
+    padding: 80px 24px;
+    background: var(--card);
+}
+
+.practices-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.practice-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.practice-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+.practice-card.bad {
+    border-left: 4px solid var(--weak);
+}
+
+.practice-icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.practice-card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+}
+
+.practice-card p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+/* ========== ABOUT SECTION ========== */
+.about-section {
+    padding: 80px 24px;
+    background: var(--bg-alt);
+}
+
+.about-content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.about-text h3 {
+    font-size: 1.25rem;
+    margin-bottom: 16px;
+    color: var(--text);
+}
+
+.feature-list {
+    list-style: none;
+}
+
+.feature-list li {
+    padding: 12px 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1rem;
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
+}
+
+.feature-list li:last-child {
+    border-bottom: none;
+}
+
+.check {
+    color: var(--success);
+    font-weight: bold;
+}
+
+/* ========== WARNING BOX ========== */
+.safety-warning-section {
+    padding: 60px 24px;
+    background: var(--card);
+}
+
+.warning-box {
+    background: var(--warning-bg);
+    border: 2px solid var(--warning-border);
+    border-radius: 12px;
+    padding: 32px;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.warning-box h2 {
+    font-size: 1.5rem;
+    color: #92400e;
+    margin-bottom: 12px;
+}
+
+.warning-box p {
+    color: #78350f;
+    font-size: 1rem;
+}
+
+/* ========== SAFETY SECTION ========== */
+.safety-section {
+    padding: 80px 24px;
+    background: var(--bg-alt);
+}
+
+.safety-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.safety-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    background: var(--card);
+    padding: 24px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+}
+
+.safety-check {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.safety-item h4 {
+    font-size: 1rem;
+    color: var(--text);
+    margin-bottom: 4px;
+}
+
+.safety-item p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* ========== HOW IT WORKS ========== */
+.how-section {
+    padding: 80px 24px;
+    background: var(--card);
+}
+
+.techniques-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.technique-item {
+    background: var(--bg);
+    padding: 24px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+}
+
+.technique-icon {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.technique-item h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+}
+
+.technique-item p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* ========== MYTHS SECTION ========== */
+.myths-section {
+    padding: 80px 24px;
+    background: var(--bg-alt);
+}
+
+.myths-list {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.myth-item {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 24px;
+    border: 1px solid var(--border);
+}
+
+.myth-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    color: var(--text);
+}
+
+.myth-x {
+    font-size: 1.25rem;
+}
+
+.myth-fact {
+    padding-left: 36px;
+    color: var(--text-muted);
+}
+
+.fact-label {
+    color: var(--success);
+    font-weight: 600;
+}
+
+/* ========== STRONG PASSWORD SECTION ========== */
+.strong-section {
+    padding: 80px 24px;
+    background: var(--card);
+}
+
+.strong-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
+    gap: 20px;
 }
 
-.example-item {
-    background: #333;
-    border-radius: 8px;
-    padding: 15px;
+.strong-item {
+    background: var(--bg);
+    padding: 28px 24px;
+    border-radius: 12px;
     text-align: center;
-    border: 1px solid #444;
-    color: #ccc;
+    border: 1px solid var(--border);
+    transition: all 0.2s;
 }
 
-.example-item strong {
-    color: #ffaa44;
+.strong-item:hover {
+    border-color: var(--primary);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(30, 64, 175, 0.1);
 }
 
+.strong-icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.strong-item h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 8px;
+    letter-spacing: 0.05em;
+}
+
+.strong-item p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* ========== PASSPHRASE SECTION ========== */
+.passphrase-section {
+    padding: 80px 24px;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+}
+
+.passphrase-card {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 40px;
+    color: white;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.passphrase-card h2 {
+    font-size: 1.75rem;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.passphrase-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.passphrase-what h3,
+.passphrase-benefits h3 {
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+}
+
+.passphrase-example {
+    background: rgba(0,0,0,0.2);
+    padding: 16px;
+    border-radius: 8px;
+    margin-top: 16px;
+    font-family: monospace;
+    font-size: 0.95rem;
+}
+
+.passphrase-benefits ul {
+    list-style: none;
+}
+
+.passphrase-benefits li {
+    padding: 8px 0;
+    opacity: 0.95;
+}
+
+.passphrase-tip {
+    text-align: center;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    font-weight: 500;
+}
+
+/* ========== FOOTER ========== */
+.site-footer {
+    background: var(--secondary);
+    color: white;
+    padding: 48px 24px;
+}
+
+.footer-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.footer-links a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.2s;
+}
+
+.footer-links a:hover {
+    color: white;
+}
+
+.footer-copyright {
+    color: rgba(255,255,255,0.5);
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+}
+
+.footer-social {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    align-items: center;
+}
+
+.footer-social span {
+    color: rgba(255,255,255,0.5);
+    font-size: 0.85rem;
+}
+
+.footer-social a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 0.85rem;
+}
+
+.footer-social a:hover {
+    color: white;
+}
+
+/* ========== COLOR STATES ========== */
+.strength-weak { background: var(--weak); }
+.strength-fair { background: var(--fair); }
+.strength-good { background: var(--good); }
+.strength-strong { background: var(--strong); }
+.strength-excellent { background: var(--excellent); }
+
+.text-weak { color: var(--weak); }
+.text-fair { color: var(--fair); }
+.text-good { color: var(--good); }
+.text-strong { color: var(--strong); }
+.text-excellent { color: var(--excellent); }
+
+/* ========== RESPONSIVE ========== */
+
+/* Tablet and below (1024px) */
+@media (max-width: 1024px) {
+    .section-container {
+        padding: 0 20px;
+    }
+    
+    .practices-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .strong-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile and tablet (768px) */
+@media (max-width: 768px) {
+    /* Navigation */
+    .nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--card);
+        border-bottom: 1px solid var(--border);
+        flex-direction: column;
+        gap: 0;
+        padding: 12px 0;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .nav-menu.active {
+        display: flex;
+    }
+    
+    .nav-link {
+        padding: 12px 24px;
+        border-bottom: 1px solid var(--border);
+    }
+    
+    .nav-link:last-child {
+        border-bottom: none;
+    }
+    
+    .mobile-menu-btn {
+        display: flex;
+    }
+    
+    /* Hero */
+    .hero {
+        padding: 60px 20px;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    
+    /* Tool Section */
+    .tool-section {
+        padding: 40px 16px;
+    }
+    
+    .tool-card {
+        padding: 24px 20px;
+    }
+    
+    .tool-title {
+        font-size: 1.25rem;
+    }
+    
+    .input-group {
+        flex-direction: column;
+    }
+    
+    .toggle-btn {
+        width: 100%;
+    }
+    
+    .strength-bar-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .strength-text {
+        text-align: center;
+        margin-top: 8px;
+    }
+    
+    .stats-row {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .stat-item {
+        justify-content: center;
+    }
+    
+    /* Sections */
+    .section-title {
+        font-size: 1.5rem;
+    }
+    
+    .section-subtitle {
+        font-size: 1rem;
+    }
+    
+    .practices-section,
+    .about-section,
+    .safety-warning-section,
+    .safety-section,
+    .how-section,
+    .myths-section,
+    .strong-section,
+    .passphrase-section {
+        padding: 60px 16px;
+    }
+    
+    .practices-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .safety-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .techniques-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .strong-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .passphrase-content {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+    
+    .passphrase-card {
+        padding: 28px 20px;
+    }
+    
+    /* Footer */
+    .site-footer {
+        padding: 32px 20px;
+    }
+    
+    .footer-links {
+        flex-direction: column;
+        gap: 12px;
+    }
+}
+
+/* Small mobile (480px) */
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 1.75rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.95rem;
+    }
+    
+    .tool-card {
+        padding: 20px 16px;
+    }
+    
+    .password-input {
+        font-size: 1rem;
+        padding: 14px 16px;
+    }
+    
+    .section-title {
+        font-size: 1.35rem;
+    }
+    
+    .practice-card,
+    .technique-item,
+    .strong-item {
+        padding: 20px 16px;
+    }
+    
+    .warning-box {
+        padding: 24px 20px;
+    }
+    
+    .passphrase-card {
+        padding: 24px 16px;
+    }
+}
+
+/* Very small screens (360px) */
+@media (max-width: 360px) {
+    .hero {
+        padding: 40px 16px;
+    }
+    
+    .hero-title {
+        font-size: 1.5rem;
+    }
+    
+    .tool-title {
+        font-size: 1.1rem;
+    }
+    
+    .section-title {
+        font-size: 1.25rem;
+    }
+}
